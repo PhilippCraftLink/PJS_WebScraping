@@ -87,7 +87,7 @@ Create a database (e.g., job_listings) to store the scraped data
 
 ### Configure Environment Variables 
 
-Create a .env file in the project root with the following content:
+Use the given or create a .env file in the project root with the following content:
 
     MONGO_URI="your-MongoDB-Connection-Link"
 
