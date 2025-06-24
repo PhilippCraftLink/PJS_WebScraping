@@ -70,7 +70,7 @@ By leveraging Docker, the project ensures portability and ease of deployment, ma
 
 ### bash
 
-    git clone https://github.com/PhilippCraftLink/PJS_PWC_WS2024-25-PS.git
+    git clone https://github.com/PhilippCraftLink/PJS_WebScraping/.git
     cd $path$
 
 ### Install Dependencies 
