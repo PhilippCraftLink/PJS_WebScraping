@@ -1,4 +1,4 @@
-# Job Listing Scraper
+# PJS Web Scraper for Job Ads
 
 This project was developed as part of a university seminar in collaboration with **PWC (PricewaterhouseCoopers)**. The codebase is designed to be easily accessible and deployable using **Docker**, ensuring a streamlined setup process for users.
 
