@@ -23,7 +23,7 @@ Dependencies:
 
 Note:
 - SeleniumBase is used to handle CAPTCHA tests automatically. For reliable operation, it is recommended to run SeleniumBase locally rather than in a Docker container, as virtual environments may complicate browser interactions.
-- The script is designed to scrape a limited number of pages and jobs for testing purposes. Adjust the `max_pages` and job link slicing as needed for full-scale scraping.
+- The script is designed to scrape a given number of pages and jobs. Adjust the `max_pages` and job link slicing as needed for full-scale scraping or testing purposes.
 """
 
 # Identifiers for HTML elements containing job details
@@ -38,18 +38,14 @@ def scrape_indeed_for_title(job_title, sb, db):
     This function performs the following steps:
     1. Sets up a MongoDB collection for the specified job title with a unique index on jobID.
     2. Constructs the Indeed search URL for the job title and opens the search page using SeleniumBase.
-    3. Scrapes job links from the first few pages of search results (limited to `max_pages`).
+    3. Scrapes job links from the defined number of pages of search results.
     4. For each job link, extracts detailed job information including location, benefits, description, and additional data from embedded JSON.
     5. Stores the extracted job data in the MongoDB collection, skipping duplicates.
 
     Parameters:
-    - job_title (str): The job title to search for (e.g., "Software Engineer").
+    - job_title (str): The job title to search for.
     - sb (seleniumbase.SB): An instance of SeleniumBase for browser automation.
-    - db (pymongo.database.Database): A MongoDB database instance to store the scraped data.
-
-    Side Effects:
-    - Inserts job data into a MongoDB collection named "indeed_<job_title>".
-    - Prints progress messages and error logs to the console.
+    - db (pymongo.database.Database): MongoDB database instance to store the scraped data.
 
     Note:
     - Currently limits scraping to 10 pages and processes 100 job links; adjust these limits for full scraping or testing purposes.
@@ -77,7 +73,7 @@ def scrape_indeed_for_title(job_title, sb, db):
     # Section: Scrape Job Links from Multiple Pages
     # Collect unique job URLs across multiple search result pages
     job_links = []
-    max_pages = 10  # Limited to 5 pages for testing; increase or remove for full scraping
+    max_pages = 10
     for page in range(max_pages):
         print(f"Scraping Seite {page + 1} für {job_title}")
         raw_html = sb.get_page_source()
@@ -98,7 +94,7 @@ def scrape_indeed_for_title(job_title, sb, db):
 
     print(f"🔎 {len(job_links)} Jobangebote gefunden für {job_title}")
     print(job_links)
-    job_links = job_links[:100]  # Process only first 2 links for testing; remove for full scraping
+    job_links = job_links[:100]
     if len(job_links) == 0:
         print("Keine Jobangebote gefunden. Programm wird beendet.")
         return
